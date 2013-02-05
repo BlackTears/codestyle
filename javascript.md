@@ -14,6 +14,7 @@
 - [Красивый синтаксис](#spacing)
 - [Проверка типов (Руководство по стилю от команды jQuery Core)](#type)
 - [Условия](#cond)
+- [Стиль в действии](#practical)
 
 ----------
 ### Основы
@@ -502,6 +503,85 @@
 
     // Ложные:
     "", 0, null, undefined, NaN, void 0
+
+    ```
+    
+    5. <a name="practical">Стиль в действии</a>
+
+    ```javascript
+
+    // 5.1.1
+    // Модуль
+
+    (function( global ) {
+      var Module = (function() {
+
+        var data = "secret";
+
+        return {
+          // Логическое свойство
+          bool: true,
+          // Свойство типа строка
+          string: "a string",
+          // Свойство — массив
+          array: [ 1, 2, 3, 4 ],
+          // Свойство — объект
+          object: {
+            lang: "en-Us"
+          },
+          getData: function() {
+            // получить текущее значение переменной `data`
+            return data;
+          },
+          setData: function( value ) {
+            // присвоить значение переменной `data` и вернуть его
+            return ( data = value );
+          }
+        };
+      })();
+
+      // Другие объявления
+
+      // делаем модуль глобальным
+      global.Module = Module;
+
+    })( this );
+
+    ```
+
+    ```javascript
+
+    // 5.2.1
+    // Конструктор
+
+    (function( global ) {
+
+      function Ctor( foo ) {
+
+        this.foo = foo;
+
+        return this;
+      }
+
+      Ctor.prototype.getFoo = function() {
+        return this.foo;
+      };
+
+      Ctor.prototype.setFoo = function( val ) {
+        return ( this.foo = val );
+      };
+
+
+      // Чтобы вызывать конструктор без использования оператора `new`, можно объявить конструктор так:
+      var ctor = function( foo ) {
+        return new Ctor( foo );
+      };
+
+
+      // делаем наш конструктор глобальным
+      global.ctor = ctor;
+
+    })( this );
 
     ```
 
